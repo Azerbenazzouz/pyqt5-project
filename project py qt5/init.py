@@ -10,24 +10,30 @@ def close(self):
     self.close()
     menu.show()
 #def pgcd
-def calc_pgcd():
-    a=int(pgcd.nb1.text())
-    b=int(pgcd.nb2.text())
-    while (a!=b):
-        if a>b :
-            a=a-b
-        else:
-            b=b-a
-    pgcd.res.setText(str(a))
+def calc_pgcd(self):
+    if (pgcd.nb1.text() and pgcd.nb2.text())=='':
+        QMessageBox.warning(self, "Attention", "enter a number")
+    else:
+        a=int(pgcd.nb1.text())
+        b=int(pgcd.nb2.text())
+        while (a!=b):
+            if a>b :
+                a=a-b
+            else:
+                b=b-a
+        pgcd.res.setText(str(a))
 #PPCM
-def calc_ppcm():
-    a=int(ppcm.nb1.text())
-    b=int(ppcm.nb2.text())
-    p=a*b
-    while(a!=b):
-        if (a<b): b-=a
-        else: a-=b
-    ppcm.res.setText(str(int(p/a)))
+def calc_ppcm(self):
+    if (pgcd.nb1.text() and pgcd.nb2.text())=='':
+        QMessageBox.warning(self, "Attention", "enter a number")
+    else:
+        a=int(ppcm.nb1.text())
+        b=int(ppcm.nb2.text())
+        p=a*b
+        while(a!=b):
+            if (a<b): b-=a
+            else: a-=b
+        ppcm.res.setText(str(int(p/a)))
 #factorial
 def d(n):
     if n == 0:
@@ -36,20 +42,26 @@ def d(n):
         j=d(n-1)
         r=n * j
         return r
-def ff():
-    n=int(factorial.nb1.text())
-    x=d(n)
-    factorial.res.setText(str(x))
+def ff(self):
+    if (pgcd.nb1.text())=='':
+        QMessageBox.warning(self, "Attention", "enter a number")
+    else:
+        n=int(factorial.nb1.text())
+        x=d(n)
+        factorial.res.setText(str(x))
 #decomposition en facteur premier python
-def facteurs():
-    a=int(df.nb1.text())
-    b=2
-    while(b<=a):
-        if a%b==0:
-            a=a/b
-        else:
-            b=b+1
-    df.res.setText(str(b))
+def facteurs(self):
+    if (pgcd.nb1.text())=='':
+        QMessageBox.warning(self, "Attention", "enter a number")
+    else:
+        a=int(df.nb1.text())
+        b=2
+        while(b<=a):
+            if a%b==0:
+                a=a/b
+            else:
+                b=b+1
+        df.res.setText(str(b))
 #unnuler
 def ann(self,i):
     if i==2 :
@@ -75,21 +87,19 @@ menu.factorial.clicked.connect(lambda: show(factorial))
 menu.df.clicked.connect(lambda: show(df))
 #pgcd
 pgcd.menu.clicked.connect(lambda: close(pgcd))
-pgcd.clc.clicked.connect(calc_pgcd)
+pgcd.clc.clicked.connect(lambda:calc_pgcd(pgcd))
 pgcd.unn.clicked.connect(lambda: ann(pgcd,2))
 #ppcm
 ppcm.menu.clicked.connect(lambda: close(ppcm))
-ppcm.clc.clicked.connect(calc_ppcm)
+ppcm.clc.clicked.connect(lambda:calc_ppcm(ppcm))
 ppcm.unn.clicked.connect(lambda: ann(ppcm,2))
 #factorial
 factorial.menu.clicked.connect(lambda: close(factorial))
-factorial.clc.clicked.connect(lambda: ff())
+factorial.clc.clicked.connect(lambda: ff(factorial))
 factorial.unn.clicked.connect(lambda: ann(factorial,1))
 #df
 df.menu.clicked.connect(lambda: close(df))
-df.clc.clicked.connect(lambda:facteurs())
+df.clc.clicked.connect(lambda:facteurs(df))
 df.unn.clicked.connect(lambda: ann(df,1))
 
 app.exec_()
-
-
